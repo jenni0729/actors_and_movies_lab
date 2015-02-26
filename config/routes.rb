@@ -1,7 +1,20 @@
 Rails.application.routes.draw do
 
-  resources :movies
-  resources :actors
+  resources :movies do
+    post '/comments' => 'comments#create', as: 'comments'
+  end
+
+  resources :actors do
+    post '/comments' => 'comments#create', as: 'comments'
+  end 
+
+  # resources 
+  # get 'comments/new'
+
+  # get 'comments/edit'
+
+  # resources :movies
+  # resources :actors
 
   post '/movies/:id/actors/new' => 'movies#add_actor', as: :add_actor
   delete 'movies/:id/actors/:actor_id' => 'movies#remove_actor', as: :remove_actor
@@ -10,6 +23,8 @@ Rails.application.routes.draw do
   delete '/actors/:id/movies/:movie_id' => 'actors#remove_movie', as: :remove_movie
 
   root 'site#index'
+
+  end 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -65,4 +80,4 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-end
+
